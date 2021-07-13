@@ -3,8 +3,8 @@ ENT.Type = "ai"
 ENT.AutomaticFrameAdvance = true
 ENT.PrintName = "Weed Buyer"
 ENT.Category = "Simple Weed"
-ENT.Spawnable = false
-ENT.AdminOnly = false 
+ENT.Spawnable = true
+ENT.AdminOnly = true 
 
 ENT.Name = "Weed Buyer"
 ENT.Model = "models/Humans/Group01/male_02.mdl"
