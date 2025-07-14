@@ -15,7 +15,7 @@ DarkRP.createEntity("Weed Pot", {
   ent = "weed_plant",
   model = "models/nater/weedplant_pot.mdl",
   price = 12000,
-  max = 2,
+  max = 1,
   category = "Simple Weed",
   cmd = "buyplantpot",
   allowed = allowedWeed
@@ -35,9 +35,20 @@ DarkRP.createEntity("Weed Seeds", {
   ent = "weed_seed",
   model = "models/props_junk/garbage_bag001a.mdl",
   price = 6000,
-  max = 2,
+  max = 1,
   category = "Simple Weed",
   cmd = "buyseeds",
   allowed = allowedWeed
 })
+
+DarkRP.createEntity("Weed Grow Formula", {
+  ent = "weed_grow",
+  model = "models/props_junk/garbage_plasticbottle001a.mdl",
+  price = 25000,
+  max = 1,
+  cmd = "buygrowformula",
+  category = "Simple Weed",
+  allowed = allowedWeed
+})
+
 end)

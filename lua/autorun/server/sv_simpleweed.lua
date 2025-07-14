@@ -1,3 +1,5 @@
+SimpleWeed = SimpleWeed || {}
+
 util.AddNetworkString("SimpleWeed.Notify")
 local function Notify(ply, msg)
 	net.Start("SimpleWeed.Notify")
@@ -42,14 +44,9 @@ function SimpleWeedSold(ply, msg)
 	NPCNotify(ply, msg)
 end
 
-function SimpleWeedPickUp(ply)
-	ply.Weed = (ply.Weed or 0) + 1
-	Notify(ply, "You now have " .. ply.Weed .. " ounces of weed.")
-end
-
-function SimpleWeedBoxPickUp(ply, qty)
-	ply.Weed = (ply.Weed or 0) + qty
-	Notify(ply, "You now have " .. ply.Weed .. " ounces of weed.")
+function SimpleWeedPickUp(ply, amount)
+	ply.Weed = (ply.Weed or 0) + amount
+	Notify(ply, "+".. amount .. " ounce(s) (" .. ply.Weed .. ") weed.")
 end
 
 local function Fail(ply)
@@ -60,17 +57,17 @@ end
 local function SimpleWeedCheck(ply)
 	ply.Weed = (ply.Weed or 0)
 	if ply.Weed == 0 then Notify(ply, "You don't have any weed.") return end
-	Notify(ply, "You have " .. ply.Weed .. " ounces of weed.")
+	Notify(ply, "You have " .. ply.Weed .. " ounce(s) of weed.")
 end
 
-hook.Add( "PlayerSay", "SimpleWeedCheck", function( ply, text  )
+hook.Add( "PlayerSay", "SimpleWeed.Check", function( ply, text  )
     if  ( string.lower( text ) == "/weed" or string.lower( text ) == "!weed" ) then
 	     SimpleWeedCheck(ply)
 	    return ""
 	end
 end)
 
-hook.Add("PlayerDeath", "SimpleWeedWeed.PlayerDeath", function(victim, inflictor, attacker)
+hook.Add("PlayerDeath", "SimpleWeed.PlayerDeath", function(victim, inflictor, attacker)
 	if victim.Weed and victim.Weed > 0 then
 		if attacker:isCP() then
 			local reward = (victim.Weed * simpleweed_sellprice:GetInt()) * 0.5
@@ -80,7 +77,7 @@ hook.Add("PlayerDeath", "SimpleWeedWeed.PlayerDeath", function(victim, inflictor
 			local reward = math.floor(victim.Weed / 4)
 			if reward > 0 then
 				attacker.Weed = (attacker.Weed or 0) + reward
-				Notify(attacker, "You just killed a weed dealer and got " .. reward .. " ounces of weed.")
+				Notify(attacker, "You just killed a weed dealer and got (" .. reward .. ") ounce(s) of weed.")
 			end
 		end
 		Fail(victim)

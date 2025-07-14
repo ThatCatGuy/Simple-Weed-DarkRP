@@ -10,24 +10,36 @@ function ENT:Initialize()
 	self:SetMoveType( MOVETYPE_VPHYSICS )
 	self:SetSolid( SOLID_VPHYSICS )
 	self:SetCollisionGroup( COLLISION_GROUP_WEAPON  )
-	self:SetPos(self:GetPos()+Vector(0, 0, 32));
+	self:SetPos(self:GetPos()+Vector(0, 0, 32))
     local phys = self:GetPhysicsObject()
 
 	if (phys:IsValid()) then
 		phys:Wake()
-	end
+	end	
 	self.angleResetCooldown = 0
 	self:SetStage(0)
+	self:SetSeeds(0)
     if IsValid(self.dt.owning_ent) then
-        self:CPPISetOwner(self.dt.owning_ent)
+    	self:CPPISetOwner(self.dt.owning_ent)
         self.SID = self.dt.owning_ent.SID
     end
 end
+CreateConVar( "simpleweed_extragrow", 1, FCVAR_SERVER_CAN_EXECUTE )
+local simpleweed_extragrow = GetConVar( "simpleweed_extragrow" )
 
-function ENT:StartTouch(ent)
-	if ent:GetClass() == "weed_seed" and self:GetStage() == 0 and !ent.Used then
+function ENT:StartTouch(ent)	
+
+	if ent:GetClass() == "weed_seed" and self:GetSeeds() != self.ScaleToHarvest[self:GetModelScale()] and !ent.Used then
 		ent.Used = true
 		ent:Remove()
+		self:SetSeeds(self:GetSeeds() + 1)
+	end
+	if ent:GetClass() == "weed_grow" and self:GetStage() == 0 and !ent.Used and self.ScaleToHarvest[self:GetModelScale()] < (!simpleweed_extragrow:GetBool() and 2 or 3) then
+		ent.Used = true
+		ent:Remove()
+		self:SetModelScale( self:GetModelScale() + 0.25)
+	end
+	if self:GetStage() == 0 and self:GetSeeds() == self.ScaleToHarvest[self:GetModelScale()] then
 		self:StageOne()
 	end
 end
@@ -41,6 +53,13 @@ function ENT:Restart()
 	self:SetStage(0)
 end
 
+function ENT:CreateWeedBag(amount)
+	local weed = ents.Create("weed")
+	weed:SetPos(self:GetPos()+Vector(0, 0, 20))
+	weed:Spawn()
+	weed:SetAmount(amount)
+end
+
 function ENT:Use(act, caller)
 	if caller:KeyDown(IN_SPEED) and self.angleResetCooldown < CurTime() then
 		self:SetAngles(Angle(0,caller:GetAngles().y - 45,0))
@@ -50,9 +69,8 @@ function ENT:Use(act, caller)
 	if self:GetStage() == 8 then
 		self:Restart()
 		self:EmitSound("weapons/physcannon/physcannon_claws_close.wav")
-		local weed = ents.Create("weed")
-		weed:SetPos(self:GetPos()+Vector(0, 0, 20))
-		weed:Spawn()
+		self:CreateWeedBag(self.ScaleToHarvest[self:GetModelScale()])
+		self:SetSeeds(0)
 	end
 end
 
