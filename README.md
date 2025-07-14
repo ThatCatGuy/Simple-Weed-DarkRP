@@ -20,6 +20,7 @@ You can respawn the weed buyer(s) locations on the current map by using console 
 ## Weed Config
 You can set the grow speed of the weed plant by setting **simpleweed_growtime xxx** in your server console. **(Default = 85 seconds per stage so in total its just under 10 mins of grow time)**
 You can set the sell price of the weed bags by setting **simpleweed_sellprice xxx** in your server console. **(Default = 27,000 per bag)**
+You can set the extra grow of the weed plant by setting **simpleweed_extragrow 1** in your server console. **(Default = 1 meaning the player will be allowed to add 2 grow formulas and make the plant produce 3 bags of weed if set to 0 it will allow only 1 grow formula and produce 2 bags of weed)**
 To configure the price of the ents or change it so its not limited to the Gangster Job then download it from the GitHub link below and edit the darkrp info.
 
 ## How to spawn
