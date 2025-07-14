@@ -13,10 +13,10 @@ You can also get rewards as a player for killing someone holding weed on their p
 
 ## How to configure
 ## NPC Config
-You can spawn the weed buyer by looking where you want him to spawn then using console command **simpleweed_spawnnpc**.
-You can save the weed buyer(s) locations on the current map by using console command **simpleweed_savenpcs**.
-You can remove the weed buyer(s) locations on the current map by using console command **simpleweed_removenpcs** this will prevent them spawning on the next restart..
-You can respawn the weed buyer(s) locations on the current map by using console command **simpleweed_respawnnpcs** this is handy if you just saved them or updated the saves it will remove them from the map and reload from the file so if you move one by mistake then use the respawn command and it will fix its position.
+You can spawn the weed buyer by looking where you want him to spawn then using console command **simpleweed_spawnnpc**.<br/>
+You can save the weed buyer(s) locations on the current map by using console command **simpleweed_savenpcs**.<br/>
+You can remove the weed buyer(s) locations on the current map by using console command **simpleweed_removenpcs** this will prevent them spawning on the next restart..<br/>
+You can respawn the weed buyer(s) locations on the current map by using console command **simpleweed_respawnnpcs** this is handy if you just saved them or updated the saves it will remove them from the map and reload from the file so if you move one by mistake then use the respawn command and it will fix its position.<br/>
 ## Weed Config
 You can set the grow speed of the weed plant by setting **simpleweed_growtime xxx** in your server console. **(Default = 85 seconds per stage so in total its just under 10 mins of grow time)**
 You can set the sell price of the weed bags by setting **simpleweed_sellprice xxx** in your server console. **(Default = 27,000 per bag)**
